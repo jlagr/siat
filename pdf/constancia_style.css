@@ -1,0 +1,244 @@
+@page {
+    margin: 0cm 0cm;
+}
+
+body {
+   font-family: 'Arial','Helvetica', sans-serif;
+   font-size: 12px;
+   margin-top: 2.1cm;
+   margin-left: 1.7cm;
+   margin-right: 1.8cm;
+   margin-bottom: 2cm;
+}
+
+header {
+    position: fixed;
+    top: 1.6cm;
+    left: 1.6cm;
+}
+.header-black {
+    position: fixed;
+    top: 1.8cm;
+    left: 1.7cm;
+    right: 1.8cm;
+    height: 1.2cm;
+    background-color: #323232;
+}
+
+/** Define the footer rules **/
+footer {
+    position: fixed; 
+    bottom: 3.5cm; 
+    left: 1.7cm; 
+    right: 1.8cm;
+    height: 2cm;
+    text-align: center;
+    line-height: 1.5cm;
+}
+.footer-block {
+    border-top: 5px solid #323232;
+    height: 2cm;
+}
+
+.footer-image {
+    margin-top:0.3cm;
+    width: 17.5cm;
+    height: 1.4cm;
+}
+
+.footer-image img {
+    width: 17.5cm;
+    height: 1.4cm;
+}
+
+main {
+    margin-top: 0.9cm;
+}
+
+.table-container {
+    float: left; 
+    border: 0.5px solid #909090;
+    padding: 0px;
+}
+
+.table-container table {
+    border-collapse: collapse;
+    margin-top: -0.5px;
+    width: 100%;
+    z-index: 99;
+}
+
+.table-container table .table-cell-header {
+    background-color: #e3e3e3ef;
+    font-weight: bold;
+}
+
+.table-container table tr td {
+    float: left; 
+    font-size: 8pt;
+    border: 0.5px solid #D7D7D7;
+    padding: 5px;
+    vertical-align: top;
+}
+
+.table-title {
+    height: 0.7cm;
+    background-color: #e3e3e3ef;
+    text-align: center;
+    border-bottom: 0.5px solid #D7D7D7;;
+    font-weight: bold;
+    z-index: 99;
+}
+
+.gray-block {
+    position:fixed;
+    border: 0.5px solid #D7D7D7;;
+    background-color: #e3e3e3ef;
+    text-align: center;
+    height: 1.2cm;
+}
+
+.gray-block-text {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 2.2cm;
+    margin-left: 9.2cm;
+    z-index: 0;
+}
+.gray-block-text-lugar {
+    font-size: 8pt;
+    text-align: center;
+    margin-top: 0.9cm;
+    margin-left: 9.2cm;
+    z-index: 0;
+    
+}
+.gray-block-text-lugar-ln2 {
+    font-size: 8pt;
+    font-weight: bold;
+    text-transform: capitalize;
+    text-align: center;
+    margin-top: 0.1cm;
+    margin-left: 9.2cm;
+    z-index: 0;
+}
+
+.bar-code-image {
+    position:fixed;
+    text-align: center;
+    height: .7cm;
+    width: 4cm;
+}
+
+.bar-code-image img {
+    height: .7cm;
+    width: 4cm;
+    margin-left: -5.2cm
+}
+
+.bar-code-text {
+    font-size: 7.5pt;
+    text-align: center;
+    margin-top: 1.5cm;
+    margin-left: 9.5cm;
+    z-index: 0;
+}
+
+.table-title-text {
+    line-height: 20px;
+}
+
+.table-content {
+    font-size: 7.5pt;
+    margin-top: -10px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.cedula-logos {
+    position: fixed;
+    height: 1cm;
+    width: 8.3cm;
+}
+
+.cedula-logos img {
+    height: 1cm;
+    width: 8.3cm;
+}
+ 
+.cedula-qr {
+    position: fixed;
+    height: 2.7cm;
+    width: 2.7cm;
+    margin-top: 1.5cm;
+    margin-left:0.5cm;
+}
+
+.cedula-qr img {
+    height: 2.7cm;
+    width: 2.7cm;
+}
+
+.cedula-data {
+    position: fixed;
+    width: 4.3cm;
+    margin-top: 1cm;
+    margin-left: 4cm;
+ }
+
+.cedula-data p {
+    font-size: 7.5pt;
+    text-align: center;
+    color:#909090;
+ }
+
+.table-final {
+    border: 2px solid #D7D7D7;
+    padding: 0px;
+}
+
+.pagina {
+    font-size: 10px !important;
+    position: fixed;
+    bottom: 5.55cm;
+    right: 1.9cm;
+}
+
+.fix-qr-img {
+    margin-top: 1.5cm;
+    margin-left: 13.4cm;
+    width: 3.4cm;
+    height: 3.4cm;
+}
+
+.fix-qr-img img {
+    width: 3.4cm;
+    height: 3.4cm;
+}
+
+.single-row {
+    font-size: 7.5pt;
+    margin-top: 1.3cm;
+    position: fixed;
+    padding: 6px;
+    width: 17.7cm;
+    border: 0.5px solid #D7D7D7;
+}
+
+.legend p {
+    font-size: 7pt;
+    font-weight: bold;
+    text-align: justify;
+}
+
+.cadena-sello-block {
+    font-size: 7pt;
+}
+
+.cadena-sello-block table {
+   width: 100%;
+}
+
+.cadena-sello-block table tr {
+   vertical-align: top;
+}

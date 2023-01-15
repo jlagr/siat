@@ -1,0 +1,194 @@
+@font-face {
+    font-family: "Arial MT";
+    font-style: normal;
+    src: url("https://fonts.cdnfonts.com/css/arial-mt");
+}
+@page {
+    margin: 0cm 0cm;
+}
+
+body {
+   font-family: 'Arial MT', sans-serif;
+   font-size: 12px;
+    margin-top: 2cm;
+    margin-left: 2cm;
+    margin-right: 2cm;
+    margin-bottom: 2cm;
+}
+
+header {
+    position: fixed;
+    top: 3cm;
+    left: 2cm;
+}
+.header-black {
+    position: fixed;
+    top: 1.7cm;
+    left: 2cm;
+    right: 1.7cm;
+    height: 1.4cm;
+    background-color: #323232;
+}
+.header-logo {
+    position: fixed;
+    top: 1.9cm;
+    left: 2.2cm;
+    width: 2.3cm;
+}
+
+.header-gray {
+    position: fixed;
+    top: 3.1cm;
+    left: 2cm;
+    right: 1.7cm;
+    height: 1.4cm;
+    background-color: #E3E3E3;
+    border-bottom: 2px solid #D7D7D7;
+    border-left: 2px solid #D7D7D7;
+    border-right: 2px solid #D7D7D7;
+    text-align: center;
+    line-height: 1cm;
+}
+.header-title {
+    position: fixed;
+    top: 120px;
+    left: 7.8cm;
+}
+/** Define the footer rules **/
+footer {
+    position: fixed; 
+    bottom: 2.3cm; 
+    left: 2cm; 
+    right: 1.8cm;
+    height: 5.3cm;
+    text-align: center;
+    line-height: 1.5cm;
+}
+.footer-block {
+    border-top: 3px solid #323232;
+    border-bottom: 3px solid #323232;
+    height: 3cm;
+}
+.footer-data {
+    width: 13.7cm;
+    text-align: left;
+    margin-left: 5px;
+}
+.footer-cadena-label {
+    margin-top: -30px;
+   font-size: 11px;
+   font-weight: bold;
+    height: 10px;
+}
+.footer-sello-label {
+   font-size: 11px;
+   font-weight: bold;
+    height: 10px;
+    margin-top: 10px;
+}
+.footer-sello {
+    margin-top: 45px;
+   font-size: 10px;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+.footer-cadena {
+    margin-top: 10px;
+   font-size: 10px;
+    height: 10px;
+}
+
+.footer-qr {
+    position: fixed;
+    width: 2.3cm;
+    height: 2.3cm;
+    margin-top: -75px;
+    margin-left: 580px;
+}
+
+.footer-qr img {
+    width: 2.3cm;
+    height: 2.3cm;
+}
+
+.footer-block-inst {
+    background-color: #E3E3E3;
+    height: 2cm ;
+}
+
+.footer-imagen-block {
+    height: 1.5cm;
+    width: 11cm;
+}
+
+.footer-direccion-block {
+    position: fixed;
+    top: 3.4cm;
+    left: 14cm;
+    height: 1.5cm;
+    width: 5.5cm;
+}
+
+.footer-direccion-block p {
+    font-size: 10px;
+    text-align: left;
+    line-height: 130%;
+    margin-top: -0.2cm;
+}
+
+.footer-imagen {
+    margin-top:0.3cm;
+    width: 10cm;
+    height: 1cm;
+}
+
+main {
+    margin-top: 3.2cm;
+}
+
+.doc-title {
+    margin-top: 0cm;
+    margin-left: 5.2cm;
+}
+
+.table-container {
+    float: left; 
+    border: 2px solid #D7D7D7;
+    padding: 0px;
+}
+
+.table-title {
+    height: 0.6cm;
+    margin-top: -0.5px;
+    margin-left: -0.5px;
+    margin-right: -0.5px;
+    background-color: #E3E3E3;
+    text-align: center;
+    border-bottom: 2px solid #D7D7D7;
+}
+
+.table-title-text {
+    line-height: 20px;
+}
+
+.field {
+   font-size: 10px;
+}
+.table-content {
+    font-size: 10px!important;
+    margin-top: -10px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.table-final {
+    border: 2px solid #D7D7D7;
+    padding: 0px;
+}
+
+.pagina {
+    font-size: 10px !important;
+    position: fixed;
+    bottom: 2cm;
+    right: 2.5cm;
+}

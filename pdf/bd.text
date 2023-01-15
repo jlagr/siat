@@ -1,0 +1,28 @@
+$host = 'localhost';
+$user = 'mi_usuario';
+$password = 'mi_contraseña';
+$dbname = 'mi_bd';
+
+// Crear conexión
+$conn = mysqli_connect($host, $user, $password, $dbname);
+
+// Verificar conexión
+if (!$conn) {
+    die("Conexión fallida: " . mysqli_connect_error());
+}
+
+$rfc = $_GET['rfc'];
+$sql = "SELECT * FROM contribuyentes WHERE rfc = '$rfc'";
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+    // Se encontró al menos un resultado
+    while($row = mysqli_fetch_assoc($result)) {
+        echo "id: " . $row["id"]. " - Nombre: " . $row["nombre"]. " " . $row["apellido"]. "<br>";
+    }
+} else {
+    echo "No se encontraron resultados";
+}
+
+// Cerrar conexión
+mysqli_close($conn);
