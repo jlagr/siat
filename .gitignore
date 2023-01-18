@@ -5,3 +5,5 @@ bitnami.css
 ./favicon.ico
 index_.php
 /img
+.vscode
+applications.html
