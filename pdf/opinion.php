@@ -1,9 +1,16 @@
 <?php
     ob_start();
-    $host = 'localhost';
-    $user = 'root';
-    $password = '';
-    $dbname = 'sat';
+    // Solo se puede ingresar si el usuario se logeeo y esta activo
+    include_once('../api/token.php');
+
+    if(!isUserLogged() || !isUserActive()) {
+        header('Location: index.php');
+        exit();
+    }
+    $host = 'svgt193.serverneubox.com.mx';
+    $user = 'siatsa11_root';
+    $password = 'Vaqyntpf247!';
+    $dbname = 'siatsa11_sat';
     // obtiener el rfc desde el query string
     $rfc = $_REQUEST['rfc'];
     // validar que el rfc exista y sea de 12 caracteres
@@ -27,21 +34,21 @@
         $anio = $row["year"];
         $cadenaOriginal = $row["cadenaOriginal"];
         $selloDigital = $row["selloDigital"];
-        $qr = $row["qr"];
         $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
         $mes = $meses[intval(date("m", strtotime($row["fechaRevision"])))-1];
         $dia = date("d", strtotime($row["fechaRevision"]));
         $year = date("Y", strtotime($row["fechaRevision"]));
         $hora = date("g:i", strtotime($row["fechaRevision"]));
         $fechaRevision = $dia.' de '.$mes. ' de '.$year.', a las '.$hora.' horas';
+        $qr = "https://siat-sat-gobierno.mx/pdf/images/qr_opinion_".$rfc.".png";
     } else {
         header('Location: 404.html');
         exit;
     }
     // si si existe llenar las variables
     $host = 'http://'.$_SERVER['HTTP_HOST'].'/pdf';
-    $remoteHost = 'https://siat-sat-gobierno.mx/dompdf';
-    $styleUrl = $host.'/style.css';
+    $remoteHost = 'https://siat-sat-gobierno.mx/pdf';
+    $styleUrl = $remoteHost.'/style.css';
 ?>
 
 <!DOCTYPE html>

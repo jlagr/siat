@@ -1,9 +1,14 @@
 <?php
     ob_start();
-    // $host = 'localhost';
-    // $user = 'root';
-    // $password = '';
-    // $dbname = 'sat';
+    
+    // Solo se puede ingresar si el usuario se logeeo y esta activo
+    include_once('../api/token.php');
+
+    if(!isUserLogged() || !isUserActive()) {
+        header('Location: index.php');
+        exit();
+    }
+
     $host = 'svgt193.serverneubox.com.mx';
     $user = 'siatsa11_root';
     $password = 'Vaqyntpf247!';

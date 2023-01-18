@@ -31,8 +31,26 @@
 	margin: 0 auto;
 }
 
+.error-box {
+	font-size: 9pt;
+	width: 300px;
+	margin: 0 auto;
+	background: linear-gradient(to bottom, #ff000078, #f2f2f2);
+	height: 40px;	
+	border-radius: 10px;
+	border: solid 1px rgb(179, 142, 93);
+	padding: 5px;
+	color:white;
+}
+
+.user-menu {
+	font-size: 12px;
+	width: 140px;
+	float: right;
+	margin-left: auto;
+}
+
 table.prueba td{
-  
   border-width: 0px;
 }
 

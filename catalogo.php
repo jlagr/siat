@@ -1,8 +1,8 @@
 <?php
     include_once('./api/token.php');
 
-    if(isUserLogged() && isUserActive()) {
-        header('Location: catalogo.php');
+    if(!isUserLogged() || !isUserActive()) {
+        header('Location: index.php');
         exit();
     } 
 ?>
@@ -29,14 +29,12 @@
 		<center><img id="j_idt5" src="./siat_files/HACIENDA-SAT.jpg" alt="" width="320px">
 		</center>
 		<div id="pageContent" data-role="content" class="ui-content" role="main">
-			<form id="login" class="login-box" autocomplete="off">
-                <input type="text" placeholder="email" id="email">
-                <input type="password" placeholder="password" id="password">
-				<div id="error" class="error-box"></div>
-                <div class="login-button">
-                    <button type="button" onclick="login()">Login</button>
-                </div>
-            </form>
+			<div class="user-menu">
+				<button type="button" onclick="logout()">Cerrar Session</button>
+			</div>
+			<?php
+				include_once './catalogo_table.php';
+			?>
 			
 		</div>
 	</div>
