@@ -11,10 +11,10 @@
         die("Conexión fallida: " . mysqli_connect_error());
     }
    
-    $sql = "SELECT * FROM obligaciones WHERE rfc = '$rfc'";
+    $sql = "SELECT * FROM obligaciones WHERE rfc = '$rfc' LIMIT 5";
     $result = mysqli_query($conn, $sql);
     $num_rows = mysqli_num_rows($result);
-    echo '<div class="table-container" style="margin-left: -18.1cm; margin-top: 7.3cm; width: 100%;">';
+    echo '<div class="table-container" style="margin-left:'.$left.'cm; margin-top: '.$top.'cm; width: 100%;">';
     echo '<div class="table-title" style="text-align: left; "><span class="table-title-text">Obligaciones:</span></div>';
     echo '<table>';
     echo '<tr class="table-cell-header"><td style="width: 7.5cm;">Descripción de la Obligación</td><td style="width: 5.5cm;">Descripción Vencimiento</td><td>Fecha Inicio</td><td>Fecha Fin</td></tr>';

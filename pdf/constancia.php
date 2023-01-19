@@ -5,7 +5,7 @@
     include_once('../api/token.php');
 
     if(!isUserLogged() || !isUserActive()) {
-        header('Location: index.php');
+        header('Location: ../index.php');
         exit();
     }
 
@@ -39,23 +39,63 @@
         die("Conexión fallida: " . mysqli_connect_error());
     }
     $sql = "SELECT * FROM $persona WHERE rfc = '$rfc'";
-    $result = mysqli_query($conn, $sql);    
+    $result = mysqli_query($conn, $sql);
+    
     // si no existe renderizar el mensaje de error
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
         $folio = $row["folio"];
         $nombre = $row["nombre"];
+        $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
+        $nombreComercial = $row["nombreComercial"];
+        $today = date("Y/m/d");
+        $mes = $meses[intval(date("m", strtotime($today)))-1];
+        $dia = date("d", strtotime($today));
+        $year = date("Y", strtotime($today));
+        $estado = $row['estado'];
+        $municipio = $row['municipio'];
+        $colonia = $row['colonia'];
+        $tipoVialidad = $row['tipoVialidad'];
+        $calle = $row['calle'];
+        $noExterior = $row['noExterior'];
+        $noInterior = $row['noInterior'];
+        $cp = $row['cp'];
+        $mail = $row['mail'];
+        $entreCalle = $row['entreCalle'];
+        $entreCalle2 = $row['entreCalle2'];
+        $qr = $remoteHost."/images/qr_constancia_".$rfc.".png";
+        $cedulaLogos = $remoteHost."/images/cedula_logos.png";
+        $footerLogos = $remoteHost."/images/constancia_footer.png";
+        $hoja3 = $remoteHost."/images/constancia_hoja3.png";
+        $barcode = $remoteHost."/images/barcode_".$rfc.".png"; 
+        $selloDigital = $row["selloDigital"];
+        $cadenaOriginal = '||'.$today.'|'.$rfc.'|CONSTANCIA DE SITUACIÓN FISCAL|200001088888800000031||';  
         if ($persona == 'morales') {
             $anio = $row["year"];
-            $cadenaOriginal = $row["cadenaOriginal"];
-            $selloDigital = $row["selloDigital"];
-            $qr = $row["qr"];
-            $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
             $mes = $meses[intval(date("m", strtotime($row["fechaRevision"])))-1];
             $dia = date("d", strtotime($row["fechaRevision"]));
             $year = date("Y", strtotime($row["fechaRevision"]));
             $hora = date("g:i", strtotime($row["fechaRevision"]));
             $fechaRevision = $dia.' de '.$mes. ' de '.$year.', a las '.$hora.' horas';
+            $estado = $row['estado'];
+            $municipio = $row['municipio'];
+            $localidad = $row['localidad'];
+            $fechaLarga = $dia.' de '.$mes.' de '.$year;
+            $lugarFecha = $municipio.', '.$estado.', a '.$fechaLarga;
+            $nombreCompleto = $row['nombre'];
+            $regimenCapital = $row['regimenCapital'];
+            $mes = $meses[intval(date("m", strtotime($row["inicioOperaciones"])))-1];
+            $dia = date("d", strtotime($row["inicioOperaciones"]));
+            $year = date("Y", strtotime($row["inicioOperaciones"]));
+            $inicioOperaciones = strtoupper($dia.' de '. $mes. ' de '.$year);
+            $mes = $meses[intval(date("m", strtotime($row["ultimoCambio"])))-1];
+            $dia = date("d", strtotime($row["ultimoCambio"]));
+            $year = date("Y", strtotime($row["ultimoCambio"]));
+            $ultimoCambio = strtoupper($dia.' de '. $mes. ' de '.$year);
+            $lada = $row['lada'];
+            $telefono = $row['telefono'];
+            $movilLada = $row['movilLada'];
+            $movil = $row['movil'];
         } else {
             $curp = $row['curp'];
             $paterno = $row['paterno'];
@@ -64,42 +104,17 @@
             $inicioOperaciones = date("d-m-Y", strtotime($row["inicioOperaciones"]));
             $situacion = $row['situacion'];
             $ultimoCambio = date("d-m-Y", strtotime($row["ultimoCambio"]));
-            $nombreComercial = $row["nombreComercial"];
-            $estado = $row['estado'];
-            $municipio = $row['municipio'];
-            $colonia = $row['colonia'];
-            $tipoVialidad = $row['tipoVialidad'];
-            $calle = $row['calle'];
-            $noExterior = $row['noexterior'];
-            $noInterior = $row['noInterior'];
-            $cp = $row['cp'];
-            $mail = $row['mail'];
             $al = $row['al'];
             $regimen = $row['regimen'];
             $alta = date("d-m-Y", strtotime($row["alta"]));
-            $entreCalle = "";
-            $entreCalle2 = $row['entreCalle2'];
             $nombreCompleto = $nombre.' '.$paterno.' '.$materno;
-            $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
-            $today = date("Y/m/d");
-            $mes = $meses[intval(date("m", strtotime($today)))-1];
-            $dia = date("d", strtotime($today));
-            $year = date("Y", strtotime($today));
             $fechaLarga = $dia.' de '.$mes.' de '.$year;
             $lugarFecha = $municipio.', '.$estado.', a '.$fechaLarga;
-            $cadenaOriginal = '||'.$today.'|'.$rfc.'|CONSTANCIA DE SITUACIÓN FISCAL|200001088888800000031||';
-            $selloDigital = $row["selloDigital"];
-            $qr = $remoteHost."/images/qr_constancia_".$rfc.".png";
-            $cedulaLogos = $remoteHost."/images/cedula_logos.png";
-            $footerLogos = $remoteHost."/images/constancia_footer.png";
-            $hoja3 = $remoteHost."/images/constancia_hoja3.png";
-            $barcode = $remoteHost."/images/barcode_".$rfc.".png";  
         }
     } else {
         header('Location: 404.html');
         exit;
     }
-    
 ?>
 
 <!DOCTYPE html>
@@ -133,7 +148,7 @@
                     <img src="<?php echo $cedulaLogos ?>" alt="cedula"/>
                 </div>
                 <div class="cedula-qr">
-                    <img src="<?php echo $qr ?>" alt="qr"/>
+                    <img src="<?php echo $qr ?>" alt="<?php echo $qr ?>"/>
                 </div>
                 <div class="cedula-data">
                     <p><?php echo $rfc ?></br>
@@ -159,59 +174,42 @@
         <div class="bar-code-text"><?php echo $rfc ?></div>
 
         <!-- Datos de identificacion -->
-        <div class="table-container" style="margin-left: -8.44cm; margin-top: 0.5cm; height: 6.2cm; width: 100%; border: 0px;">
-             <div class="table-title" style="text-align: left; "><span class="table-title-text">Datos de identificación del contribuyente:</span></div>
-             <table>
-                 <tr><td style="width: 6.5cm"><b>RFC:</b></td><td><?php echo $rfc ?></td></tr>
-                 <tr><td><b>CURP:</b></td><td><?php echo $curp ?></td></tr>
-                 <tr><td><b>Nombre (s):</b></td><td><?php echo $nombre ?></td></tr>
-                 <tr><td><b>Primer Apellido:</b></td><td><?php echo $paterno ?></td></tr>
-                 <tr><td><b>Segundo Apellido:</b></td><td><?php echo $materno ?></td></tr>
-                 <tr><td><b>Fecha de inicio de operaciones:</b></td><td><?php echo $inicioOperaciones ?></td></tr>
-                 <tr><td><b>Estatus en el padrón:</b></td><td><?php echo $situacion ?></td></tr>
-                 <tr><td><b>Fecha de último cambio de estado:</b></td><td><?php echo $ultimoCambio ?></td></tr>
-                 <tr><td><b>Nombre comercial:</b></td><td><?php echo $nombreComercial ?></td></tr>
-             </table>
-        </div>
+        <?php include_once 'cons_tabla_id_'.$persona.'.php' ?>
 
         <!-- Datos de domicilio -->
-        <div class="table-container" style="margin-left: -18.1cm; margin-top: 7.4cm; height: 6.5cm; width: 100%; border: 0px;">
-             <div class="table-title" style="text-align: left; "><span class="table-title-text">Datos del domicilio registrado</span></div>
-             <table>
-                 <tr><td style="width: 9cm"><b>Código Postal:</b> <?php echo $cp ?></td><td><b>Tipo de Vialidad: </b><?php echo $tipoVialidad ?></td></tr>
-                 <tr><td><b>Nombre de Vialidad:</b> <?php echo $calle ?></td><td><b>Número Exterior:</b> <?php echo $noExterior ?></td></tr>
-                 <tr><td><b>Número interior:</b><?php echo $noInterior ?></td><td><b>Nombre de la Colonia: </b><?php echo $tipoVialidad ?></td></tr>
-                 <tr><td><b>Nombre de Localidad:</b><?php echo $municipio ?></td><td><b>Nombre del Municipio o Demarcacion Territorial:</b> <?php echo $municipio ?></td></tr>
-                 <tr><td><b>Nombre de la Entidad Federativa:</b><?php echo $estado ?></td><td><b>Entre Calle: </b><?php echo $entreCalle ?></td></tr>
-             </table>
-        </div>
+        <?php include_once 'cons_tabla_domicilio_'.$persona.'.php' ?>
 
         <div class="pagina">Página [1] de [3]</div>
         
         <!-- Page brake Hoja 2-->
         <div style="page-break-before: always;"></div>
-            <div class="single-row"><b>Y Calle: </b><?php echo $entreCalle2 ?></div>
-            
+            <?php 
+                if($persona == 'fisicas') {
+                    echo '<div class="single-row"><b>Y Calle: </b>'. $entreCalle2 .'</div>';
+                } else {
+                    echo '<div class="single-row" style="height:13px;">';
+                    echo '<div style="width:50%; float: left;"><b>Tel. Movil Lada: </b>'. $movilLada .'</div>';
+                    echo '<div style="width:50%; float: right;"><b>Número: </b>'. $movil.'</div>';
+                    echo '</div>';
+                }
+            ?>
+                        
             <!-- Actividades económicas -->
-            <div class="table-container" style="margin-left: 0cm; margin-top: 2.3cm; width: 100%;">
-                <div class="table-title" style="text-align: left; "><span class="table-title-text">Actividades Económicas:</span></div>
-                <table>
-                    <tr class="table-cell-header"><td style="width: 1cm;">Orden</td><td style="width: 10cm;">Actividad Económica</td><td>Porcentaje</td><td>Fecha Inicio</td><td>Fecha Fin</td></tr>
-                    <tr><td>1</td><td>Otro autotrasportes de carga en general</td><td>100</td><td>19/09/1994</td><td></td></tr>
-                </table>
-            </div>
+            <?php include_once 'cons_tabla_actividades_economicas.php' ?>
 
             <!-- Regimenes -->
-            <div class="table-container" style="margin-left: 0cm; margin-top: 4.8cm; width: 100%;">
-                <div class="table-title" style="text-align: left; "><span class="table-title-text">Regimenes:</span></div>
-                <table>
-                    <tr class="table-cell-header"><td style="width: 13.5cm;">Régimen</td><td>Fecha Inicio</td><td>Fecha Fin</td></tr>
-                    <tr><td>Regimen de las Personas Físicas con Actividades Empresariales y Profesionales</td><td>01/01/2003</td><td></td></tr>
-                </table>
-            </div>
+            <?php  
+                $top = $persona == 'fisicas' ? 4.8 : 5.3; 
+                $left = $persona == 'fisicas' ? 0 : -8.82;
+                include_once 'cons_tabla_regimenes.php'
+            ?>
 
             <!-- Obligaciones -->
-            <?php include_once './obligaciones.php'; ?>
+            <?php  
+                $top = $persona == 'fisicas' ? 7.3: $top + 2.4; 
+                $left = $persona == 'fisicas' ? -18.1 : -26.95;
+                include_once 'cons_tabla_obligaciones.php'; 
+            ?>
             
             <!-- Parrafo -->
             <div class="legend" style="margin-top: 14.8cm;">

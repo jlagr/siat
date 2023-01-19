@@ -20,7 +20,7 @@
             $linkOp = "https://siat-sat-gobierno.mx/pdf/opinion.php?rfc=".$row["rfc"]."&d2=".$d2;
             $linkCon = "https://siat-sat-gobierno.mx/pdf/constancia.php?rfc=".$row["rfc"]."&d2=".$d2;
             echo "<tr>";
-            echo "<td>".$row['rfc']."</td><td>".$row['folio']."</td><td>".$row['nombre']."</td><td><a href='".$linkOp."' target='blank'><img src='./siat_files/pdf-icon.png' alt='pdf'></a></td><td><a href='".$linkCon."' target='blank'><img src='./siat_files/pdf-icon.png' alt='pdf'></a></td>";
+            echo "<td>".$row['rfc']."</td><td>".$row['folio']."</td><td>".$row['nombre']."</td><td><a href='".$linkOp."' target='_blank'><img src='./siat_files/pdf-icon.png' alt='pdf'></a></td><td><a href='".$linkCon."' target='_blank'><img src='./siat_files/pdf-icon.png' alt='pdf'></a></td>";
             echo "</tr>";
          }
     ?>

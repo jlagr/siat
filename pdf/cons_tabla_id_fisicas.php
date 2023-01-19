@@ -1,0 +1,15 @@
+
+<div class="table-container" style="margin-left: -8.44cm; margin-top: 0.5cm; height: 6.2cm; width: 100%; border: 0px;">
+    <div class="table-title" style="text-align: left; "><span class="table-title-text">Datos de identificación del contribuyente:</span></div>
+    <table>
+        <tr><td style="width: 6.5cm"><b>RFC:</b></td><td><?php echo $rfc ?></td></tr>
+        <tr><td><b>CURP:</b></td><td><?php echo $curp ?></td></tr>
+        <tr><td><b>Nombre (s):</b></td><td><?php echo $nombre ?></td></tr>
+        <tr><td><b>Primer Apellido:</b></td><td><?php echo $paterno ?></td></tr>
+        <tr><td><b>Segundo Apellido:</b></td><td><?php echo $materno ?></td></tr>
+        <tr><td><b>Fecha de inicio de operaciones:</b></td><td><?php echo $inicioOperaciones ?></td></tr>
+        <tr><td><b>Estatus en el padrón:</b></td><td><?php echo $situacion ?></td></tr>
+        <tr><td><b>Fecha de último cambio de estado:</b></td><td><?php echo $ultimoCambio ?></td></tr>
+        <tr><td><b>Nombre comercial:</b></td><td><?php echo $nombreComercial ?></td></tr>
+    </table>
+</div>
