@@ -114,7 +114,7 @@
                                 break;
                             case 10:
                                 //  constancia
-                                require './components/constanciaMessageBox.php';
+                                require './components/constanciaMessageBox.php1';
                                 require './components/constanciaIdentificacion.php';
                                 require './components/constanciaUbicacion.php';
                                 require './components/constanciaCaracteristicas.php';
