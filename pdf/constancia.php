@@ -69,7 +69,15 @@
         $hoja3 = $remoteHost."/images/constancia_hoja3.png";
         $barcode = $remoteHost."/images/barcode_".$rfc.".png"; 
         $selloDigital = $row["selloDigital"];
-        $cadenaOriginal = '||'.$today.'|'.$rfc.'|CONSTANCIA DE SITUACIÓN FISCAL|200001088888800000031||';  
+        $cadenaOriginal = '||'.$today.'|'.$rfc.'|CONSTANCIA DE SITUACIÓN FISCAL|200001088888800000031||'; 
+        $mes = $meses[intval(date("m", strtotime($row['ultimoCambio'])))-1];
+        $dia = date("d", strtotime($row['ultimoCambio']));
+        $year = date("Y", strtotime($row['ultimoCambio']));
+        $ultimoCambio = strtoupper($dia.' de '. $mes. ' de '.$year);
+        $mes = $meses[intval(date("m", strtotime($row["inicioOperaciones"])))-1];
+        $dia = date("d", strtotime($row["inicioOperaciones"]));
+        $year = date("Y", strtotime($row["inicioOperaciones"]));
+        $inicioOperaciones = strtoupper($dia.' de '. $mes. ' de '.$year);
         if ($persona == 'morales') {
             $anio = $row["year"];
             $mes = $meses[intval(date("m", strtotime($row["fechaRevision"])))-1];
@@ -84,14 +92,9 @@
             $lugarFecha = $municipio.', '.$estado.', a '.$fechaLarga;
             $nombreCompleto = $row['nombre'];
             $regimenCapital = $row['regimenCapital'];
-            $mes = $meses[intval(date("m", strtotime($row["inicioOperaciones"])))-1];
-            $dia = date("d", strtotime($row["inicioOperaciones"]));
-            $year = date("Y", strtotime($row["inicioOperaciones"]));
-            $inicioOperaciones = strtoupper($dia.' de '. $mes. ' de '.$year);
             $mes = $meses[intval(date("m", strtotime($row["ultimoCambio"])))-1];
             $dia = date("d", strtotime($row["ultimoCambio"]));
             $year = date("Y", strtotime($row["ultimoCambio"]));
-            $ultimoCambio = strtoupper($dia.' de '. $mes. ' de '.$year);
             $lada = $row['lada'];
             $telefono = $row['telefono'];
             $movilLada = $row['movilLada'];
@@ -101,9 +104,7 @@
             $paterno = $row['paterno'];
             $materno = $row['materno'];
             $nacimiento = date("d-m-Y", strtotime($row["nacimiento"]));
-            $inicioOperaciones = date("d-m-Y", strtotime($row["inicioOperaciones"]));
             $situacion = $row['situacion'];
-            $ultimoCambio = date("d-m-Y", strtotime($row["ultimoCambio"]));
             $al = $row['al'];
             $regimen = $row['regimen'];
             $alta = date("d-m-Y", strtotime($row["alta"]));

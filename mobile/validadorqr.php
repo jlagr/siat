@@ -17,15 +17,16 @@
         $persona = 'fisicas';
     }
     // buscar en la base de datos el rfc
-    $host = 'localhost';
-    $user = 'root';
-    $password = '';
-    $dbname = 'sat';
-    // $host = 'svgt193.serverneubox.com.mx';
-    // $user = 'siatsa11_root';
-    // $password = 'Vaqyntpf247!';
-    // $dbname = 'siatsa11_sat';
+    // $host = 'localhost';
+    // $user = 'root';
+    // $password = '';
+    // $dbname = 'sat';
+    $host = 'svgt193.serverneubox.com.mx';
+    $user = 'siatsa11_root';
+    $password = 'Vaqyntpf247!';
+    $dbname = 'siatsa11_sat';
     $conn = mysqli_connect($host, $user, $password, $dbname);
+    mysqli_set_charset($conn, "utf8");
     if (!$conn) {
         echo 'error';
         die("Conexión fallida: " . mysqli_connect_error());
