@@ -20,6 +20,7 @@
     }
     // buscar el rfc en una base de datos
     $conn = mysqli_connect($host, $user, $password, $dbname);
+    mysqli_set_charset($conn, "utf8");
     if (!$conn) {
         echo 'error';
         die("Conexión fallida: " . mysqli_connect_error());
@@ -32,7 +33,8 @@
         $folio = $row["folio"];
         $nombre = $row["nombre"];
         $anio = $row["year"];
-        $cadenaOriginal = $row["cadenaOriginal"];
+        $today = date("Y/m/d");
+        $cadenaOriginal = '||'.$today.'|'.$rfc.'|CONSTANCIA DE SITUACIÓN FISCAL|200001088888800000031||'; 
         $selloDigital = $row["selloDigital"];
         $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
         $mes = $meses[intval(date("m", strtotime($row["fechaRevision"])))-1];

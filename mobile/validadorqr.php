@@ -37,30 +37,30 @@
     if (mysqli_num_rows($result) > 0) {
         $type = 'op';
         $row = mysqli_fetch_assoc($result);
-        if ($persona == 'morales') {
-            $nombre = $row["nombre"];
-            $fechaRevision = date("d-m-Y", strtotime($row["fechaRevision"]));
-        } else {
-            $curp = $row['curp'];
-            $nombre = $row["nombre"];
-            $paterno = $row['paterno'];
-            $materno = $row['materno'];
-            $nacimiento = date("d-m-Y", strtotime($row["nacimiento"]));
-            $inicioOperaciones = date("d-m-Y", strtotime($row["inicioOperaciones"]));
-            $situacion = $row['situacion'];
-            $ultimoCambio = date("d-m-Y", strtotime($row["ultimoCambio"]));
-            $estado = $row['estado'];
+        $nombre = $row["nombre"];
+        $estado = $row['estado'];
             $municipio = $row['municipio'];
             $colonia = $row['colonia'];
             $tipoVialidad = $row['tipoVialidad'];
             $calle = $row['calle'];
-            $noExterior = $row['noexterior'];
+            $noExterior = $row['noExterior'];
             $noInterior = $row['noInterior'];
             $cp = $row['cp'];
             $mail = $row['mail'];
             $al = $row['al'];
             $regimen = $row['regimen'];
             $alta = date("d-m-Y", strtotime($row["alta"]));
+        if ($persona == 'morales') {
+            $fechaRevision = date("d-m-Y", strtotime($row["fechaRevision"]));
+            $nombreComercial = $row["nombreComercial"];
+            $inicioOperaciones = date("d-m-Y", strtotime($row["inicioOperaciones"]));
+            $ultimoCambio = date("d-m-Y", strtotime($row["ultimoCambio"]));
+        } else {
+            $curp = $row['curp'];
+            $paterno = $row['paterno'];
+            $materno = $row['materno'];
+            $nacimiento = date("d-m-Y", strtotime($row["nacimiento"]));
+            $situacion = $row['situacion'];
         }
     } else {
         // si no existe insertar modulo de no existencia
@@ -116,8 +116,8 @@
                             case 10:
                                 //  constancia
                                 require './components/constanciaMessageBox.php';
-                                require './components/constanciaIdentificacion.php';
-                                require './components/constanciaUbicacion.php';
+                                require './components/const_Id_'.$persona.'.php';
+                                require './components/const_Ubicacion.php';
                                 require './components/constanciaCaracteristicas.php';
                                 
                                 break;

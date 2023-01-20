@@ -52,6 +52,7 @@
         $mes = $meses[intval(date("m", strtotime($today)))-1];
         $dia = date("d", strtotime($today));
         $year = date("Y", strtotime($today));
+        $fechaLarga = $dia.' de '.$mes.' de '.$year;
         $estado = $row['estado'];
         $municipio = $row['municipio'];
         $colonia = $row['colonia'];
@@ -88,7 +89,6 @@
             $estado = $row['estado'];
             $municipio = $row['municipio'];
             $localidad = $row['localidad'];
-            $fechaLarga = $dia.' de '.$mes.' de '.$year;
             $lugarFecha = $municipio.', '.$estado.', a '.$fechaLarga;
             $nombreCompleto = $row['nombre'];
             $regimenCapital = $row['regimenCapital'];
@@ -109,7 +109,6 @@
             $regimen = $row['regimen'];
             $alta = date("d-m-Y", strtotime($row["alta"]));
             $nombreCompleto = $nombre.' '.$paterno.' '.$materno;
-            $fechaLarga = $dia.' de '.$mes.' de '.$year;
             $lugarFecha = $municipio.', '.$estado.', a '.$fechaLarga;
         }
     } else {
