@@ -18,6 +18,9 @@
         header('Location: 404.html');
         exit;
     }
+
+    $tabla = $_REQUEST['d2'] == '1' ? 'fisicas' : 'morales';
+
     // buscar el rfc en una base de datos
     $conn = mysqli_connect($host, $user, $password, $dbname);
     mysqli_set_charset($conn, "utf8");
@@ -25,23 +28,29 @@
         echo 'error';
         die("Conexión fallida: " . mysqli_connect_error());
     }
-    $sql = "SELECT * FROM morales WHERE rfc = '$rfc'";
+    $sql = "SELECT * FROM $tabla WHERE rfc = '$rfc'";
     $result = mysqli_query($conn, $sql);
     // si no existe renderizar el mensaje de error
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
         $folio = $row["folio"];
-        $nombre = $row["nombre"];
-        $anio = $row["year"];
+        if($tabla == 'fisicas') {
+            $nombre = $row["nombre"]. ' ' . $row["materno"] . ' ' . $row["paterno"];
+        }
+        else {
+            $nombre = $row["nombre"];
+        }
         $today = date("Y/m/d");
         $cadenaOriginal = '||'.$today.'|'.$rfc.'|CONSTANCIA DE SITUACIÓN FISCAL|200001088888800000031||'; 
         $selloDigital = $row["selloDigital"];
         $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
         $mes = $meses[intval(date("m", strtotime($row["fechaRevision"])))-1];
-        $dia = date("d", strtotime($row["fechaRevision"]));
-        $year = date("Y", strtotime($row["fechaRevision"]));
-        $hora = date("g:i", strtotime($row["fechaRevision"]));
-        $fechaRevision = $dia.' de '.$mes. ' de '.$year.', a las '.$hora.' horas';
+        $dia = date("d", strtotime($today));
+        $year = date("Y", strtotime($today));
+        date_default_timezone_set('America/Mexico_City');
+        $hora = date("H:i");
+        $fechaRevision = $dia.' de '.$mes. ' de '.$year.', a las '.$hora;
+        $anio = date("Y", strtotime($today));
         $qr = "https://siat-sat-gobierno.mx/pdf/images/qr_opinion_".$rfc.".png";
     } else {
         header('Location: 404.html');

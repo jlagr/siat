@@ -12,10 +12,7 @@
     $param = explode("_", $d3);
     $folio = $param[0];
     $rfc = $param[1];
-    $persona = 'morales';
-    if ($d2 == '1') {
-        $persona = 'fisicas';
-    }
+    $persona = $d2 == '1' ?  'fisicas' : 'morales';
     // buscar en la base de datos el rfc
     // $host = 'localhost';
     // $user = 'root';
@@ -39,19 +36,21 @@
         $row = mysqli_fetch_assoc($result);
         $nombre = $row["nombre"];
         $estado = $row['estado'];
-            $municipio = $row['municipio'];
-            $colonia = $row['colonia'];
-            $tipoVialidad = $row['tipoVialidad'];
-            $calle = $row['calle'];
-            $noExterior = $row['noExterior'];
-            $noInterior = $row['noInterior'];
-            $cp = $row['cp'];
-            $mail = $row['mail'];
-            $al = $row['al'];
-            $regimen = $row['regimen'];
-            $alta = date("d-m-Y", strtotime($row["alta"]));
+        $municipio = $row['municipio'];
+        $colonia = $row['colonia'];
+        $tipoVialidad = $row['tipoVialidad'];
+        $calle = $row['calle'];
+        $noExterior = $row['noExterior'];
+        $noInterior = $row['noInterior'];
+        $cp = $row['cp'];
+        $mail = $row['mail'];
+        $al = $row['al'];
+        $regimen = $row['regimen'];
+        $alta = date("d-m-Y", strtotime($row["alta"]));
+        $fechaRevision = isset($row["fechaRevision"]) 
+            ? date("d-m-Y", strtotime($row["fechaRevision"])) 
+            : date("d-m-Y");
         if ($persona == 'morales') {
-            $fechaRevision = date("d-m-Y", strtotime($row["fechaRevision"]));
             $nombreComercial = $row["nombreComercial"];
             $inicioOperaciones = date("d-m-Y", strtotime($row["inicioOperaciones"]));
             $ultimoCambio = date("d-m-Y", strtotime($row["ultimoCambio"]));
