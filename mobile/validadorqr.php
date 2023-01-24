@@ -50,10 +50,10 @@
         $fechaRevision = isset($row["fechaRevision"]) 
             ? date("d-m-Y", strtotime($row["fechaRevision"])) 
             : date("d-m-Y");
+        $inicioOperaciones = date("d-m-Y", strtotime($row["inicioOperaciones"]));
+        $ultimoCambio = date("d-m-Y", strtotime($row["ultimoCambio"]));
         if ($persona == 'morales') {
             $nombreComercial = $row["nombreComercial"];
-            $inicioOperaciones = date("d-m-Y", strtotime($row["inicioOperaciones"]));
-            $ultimoCambio = date("d-m-Y", strtotime($row["ultimoCambio"]));
         } else {
             $curp = $row['curp'];
             $paterno = $row['paterno'];

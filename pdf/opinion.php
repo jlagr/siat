@@ -4,7 +4,7 @@
     include_once('../api/token.php');
 
     if(!isUserLogged() || !isUserActive()) {
-        header('Location: index.php');
+        header('Location: ../index.php');
         exit();
     }
     $host = 'svgt193.serverneubox.com.mx';
@@ -41,7 +41,7 @@
             $nombre = $row["nombre"];
         }
         $today = date("Y/m/d");
-        $cadenaOriginal = '||'.$today.'|'.$rfc.'|CONSTANCIA DE SITUACIÓN FISCAL|200001088888800000031||'; 
+        $cadenaOriginal = '||'.$today.'|'.$rfc.'|'.$folio.'|200001088888800000031||'; 
         $selloDigital = $row["selloDigital"];
         $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
         $mes = $meses[intval(date("m", strtotime($row["fechaRevision"])))-1];
@@ -107,29 +107,31 @@
     <main>
         <div class="doc-title">Opinión del cumplimiento de obligaciones fiscales</div>
         <!-- Folio -->
-        <div class="table-container" style="margin-left: 0cm; margin-top: 0.4cm; height: 1.2cm; width: 8.6cm;">
+        <?php $box_width=9.46 ?>
+        <div class="table-container" style="margin-left: 0cm; margin-top: 0.4cm; height: 1.2cm; width: <?php echo $box_width?>cm;">
             <div class="table-title"><span class="table-title-text">Folio</span></div>
             <div class="table-content">
                 <div class="field" style='margin-left: 5px; margin-top:15px;'><?php echo $folio ?></div>
             </div>
         </div>
         <!-- RFC -->
-        <div class="table-container" style="margin-left: 0.5cm; margin-top: 0.4cm; height: 1.2cm; width: 8.6cm;">
+        <div class="table-container" style="margin-left: 0.5cm; margin-top: 0.4cm; height: 1.2cm; width:<?php echo $box_width?>cm;">
             <div class="table-title"><span class="table-title-text">Clave de R.F.C.</span></div>
             <div class="table-content">
                 <div class="field" style='margin-left: 5px; margin-top:15px;'><?php echo $rfc ?></div>
             </div>
         </div>
+
         <!-- nombre -->
-        <div class="table-container" style="margin-left: -8.7cm; margin-top:2.3cm; height: 1.2cm; width: 17.7cm;">
+        <div class="table-container" style="margin-left: -19.55cm; margin-top:2.3cm; height: 1.2cm; width: 19.5cm;">
             <div class="table-title"><span class="table-title-text">Nombre, Denominación o Razón social</span></div>
                 <div class="table-content">
                     <div class="field" style='margin-left: 5px; margin-top:15px;'><?php echo $nombre ?></div>
                 </div>
             </div>
         </div>
-
-        <div class="table-container" style="margin-left: -17.9cm; margin-top:4.2cm; height: 4.8cm; width: 17.7cm;">
+        <!-- estimado -->
+        <div class="table-container" style="margin-left: -19.55cm; margin-top:4.2cm; height: 4.8cm; width: 19.5cm;">
             <div class="table-title"><span class="table-title-text">Estimado contribuyente</span></div>
                 <div class="table-content">
                         <p>Respuesta de opinión:</p>
@@ -138,39 +140,34 @@
                         <p>Revisión practicada el día <?php echo $fechaRevision ?> horas</p> 
                 </div>
         </div>
-
-        <div class="table-container" style="margin-left: -26.9cm; margin-top:9.7cm; height: 4.3cm; width: 17.7cm;">
+            
+        <!-- notas -->
+        <div class="table-container" style="margin-left: -19.55cm; margin-top:9.7cm; height: 4.3cm; width: 19.5cm;">
             <div class="table-title"><span class="table-title-text">Notas</span></div>
                 <div class="table-content" style="margin-top: 3px;">
                         <p style="text-align: justify;">1.- La opinión del cumplimiento, se genera atendiendo a la situación fiscal del contribuyente en los siguientes sentidos: POSITIVA. - Cuando el
-contribuyente está inscrito y al corriente en el cumplimiento de las obligaciones que se consideran en los numerales 1 a 12 de la regla 2.1.37. de
-la Resolución Miscelánea Fiscal para <?php echo $anio ?>; NEGATIVA. - Cuando el contribuyente no esté al corriente en el cumplimiento de las obligaciones
-que se consideran en los numerales 1 a 12 de la regla 2.1.37. de la Resolución Miscelánea Fiscal para <?php echo $anio ?>; INSCRITO SIN OBLIGACIONES.-
+contribuyente está inscrito y al corriente en el cumplimiento de las obligaciones que se consideran en los numerales 1 a 12 de la regla 2.1.37. de la Resolución Miscelánea Fiscal para <?php echo $anio ?>; NEGATIVA. - Cuando el contribuyente no esté al corriente en el cumplimiento de las obligaciones que se consideran en los numerales 1 a 12 de la regla 2.1.37. de la Resolución Miscelánea Fiscal para <?php echo $anio ?>; INSCRITO SIN OBLIGACIONES.-
 Cuando el contribuyente está inscrito en el RFC pero no tiene obligaciones fiscales.</p>
                         <p>2.- Para estímulos o subsidios, la opinión que se genere indicando que es Inscrito SIN OBLIGACIONES fiscales, se tomará como Positiva
 cuando el monto del subsidio no rebase de 40 UMAS elevado al año, en caso contrario se considera como resultado Negativo.</p>
                         <p>3.- La presente opinión se emite considerando lo establecido en la regla 2.1.37. de la Resolución Miscelánea Fiscal para <?php echo $anio ?>.</p>
                 </div>
         </div>
+        
         <div class="pagina">Página 1 de 2</div>
         <!-- Page brake -->
         <div style="page-break-before: always;"></div>
 
-        <div class="table-container" style="margin-top:3cm; height: 4cm; width: 17.8cm;">
+        <div class="table-container" style="margin-top:3.5cm; height: 4cm; width: 19.5cm;">
             <div class="table-title"><span class="table-title-text">Notas</span></div>
                 <div class="table-content">
-                        <p style="text-align: justify;">4.- Tratándose de estímulos o subsidios, tiene una vigencia de 3 meses contada a partir del día en que se emite según lo establecido en la regla
-2.1.28. y 30 días naturales a partir de su emisión para trámites diferentes al señalado, de acuerdo a la regla 2.1.37. de la Resolución Miscelánea
-Fiscal para <?php echo $anio?>.</p>
-                        <p>5.- La opinión que se genere indicando que es INSCRITO SIN OBLIGACIONES fiscales, se considera Opinión Negativa para efectos de
-contratación de adquisiciones, arrendamientos, servicios u obra pública.</p>
-                        <p>6.- La presente opinión se emite de conformidad con lo establecido en el artículo 32-D del Código Fiscal de la Federación, regla 2.1.37. de la
-Resolución Miscelánea Fiscal para <?php echo $anio?> y no constituye respuesta favorable respecto a contribuyentes que se ubican en los supuestos del
-artículo 69 del Código Fiscal de la Federación..</p>
+                        <p style="text-align: justify;">4.- Tratándose de estímulos o subsidios, tiene una vigencia de 3 meses contada a partir del día en que se emite según lo establecido en la regla 2.1.28. y 30 días naturales a partir de su emisión para trámites diferentes al señalado, de acuerdo a la regla 2.1.37. de la Resolución Miscelánea Fiscal para <?php echo $anio?>.</p>
+                        <p>5.- La opinión que se genere indicando que es INSCRITO SIN OBLIGACIONES fiscales, se considera Opinión Negativa para efectos de contratación de adquisiciones, arrendamientos, servicios u obra pública.</p>
+                        <p>6.- La presente opinión se emite de conformidad con lo establecido en el artículo 32-D del Código Fiscal de la Federación, regla 2.1.37. de la Resolución Miscelánea Fiscal para <?php echo $anio?> y no constituye respuesta favorable respecto a contribuyentes que se ubican en los supuestos del artículo 69 del Código Fiscal de la Federación..</p>
                 </div>
         </div>
 
-        <div class="table-final" style="width: 17.8cm; margin-top:7.8cm;">
+        <div class="table-final" style="width: 19.5cm; margin-top:8.2cm;">
                 <div class="table-content" style="margin-top:10px">
                     <p>Este servicio es gratuito, en el SAT nuestra misión es servirle.</p>
                     <p>Sus datos personales son incorporados y protegidos en los sistemas del SAT, de conformidad con los lineamientos de protección de Datos Personales y con las diversas disposiciones fiscales y legales sobre confidencialidad y protección de datos, a fin de ejercer las facultades conferidas a la autoridad fiscal.</p>
@@ -178,6 +175,7 @@ artículo 69 del Código Fiscal de la Federación..</p>
                 </div>
                 
         </div>
+
         <div class="pagina">Página 2 de 2</div>
     </main>
 </body>

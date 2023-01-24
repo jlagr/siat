@@ -8,58 +8,57 @@
 }
 
 body {
-   font-family: 'Arial MT', sans-serif;
-   font-size: 12px;
-    margin-top: 2cm;
-    margin-left: 2cm;
-    margin-right: 2cm;
-    margin-bottom: 2cm;
+    font-family: 'Arial MT', sans-serif;
+    font-size: 12px;
+    margin-top: 1cm;
+    margin-left: 1cm;
+    margin-right: 1cm;
+    margin-bottom: 1cm;
 }
 
 header {
     position: fixed;
-    top: 3cm;
-    left: 2cm;
+    top: 1cm;
+    left: 1cm;
 }
 .header-black {
     position: fixed;
-    top: 1.7cm;
-    left: 2cm;
-    right: 1.7cm;
+    top: 1cm;
+    left: 1cm;
+    right: 1cm;
     height: 1.4cm;
     background-color: #323232;
 }
 .header-logo {
     position: fixed;
-    top: 1.9cm;
-    left: 2.2cm;
+    top: 1.2cm;
+    left: 1.5cm;
     width: 2.3cm;
 }
 
 .header-gray {
     position: fixed;
-    top: 3.1cm;
-    left: 2cm;
-    right: 1.7cm;
+    top: 2.4cm;
+    left: 1cm;
+    right: 1cm;
     height: 1.4cm;
     background-color: #E3E3E3;
     border-bottom: 2px solid #D7D7D7;
     border-left: 2px solid #D7D7D7;
     border-right: 2px solid #D7D7D7;
-    text-align: center;
+    text-align-last: center;
     line-height: 1cm;
 }
 .header-title {
-    position: fixed;
-    top: 120px;
-    left: 7.8cm;
+    position: relative;
+    left: 7cm; 
 }
 /** Define the footer rules **/
 footer {
     position: fixed; 
     bottom: 2.3cm; 
-    left: 2cm; 
-    right: 1.8cm;
+    left: 1cm; 
+    right: 1cm;
     height: 5.3cm;
     text-align: center;
     line-height: 1.5cm;
@@ -103,7 +102,7 @@ footer {
     width: 2.3cm;
     height: 2.3cm;
     margin-top: -75px;
-    margin-left: 580px;
+    margin-left: 640px;
 }
 
 .footer-qr img {
@@ -148,7 +147,7 @@ main {
 
 .doc-title {
     margin-top: 0cm;
-    margin-left: 5.2cm;
+    margin-left: 6.2cm;
 }
 
 .table-container {
@@ -190,5 +189,5 @@ main {
     font-size: 10px !important;
     position: fixed;
     bottom: 2cm;
-    right: 2.5cm;
+    right: 1.5cm;
 }
