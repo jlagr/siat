@@ -157,7 +157,7 @@
                     <p><?php echo $nombreCompleto ?></br>
                     Nombre, denominación o razón social
                     </p>
-                    <p>idCIF: <?php echo $folio ?></br>
+                    <p>idCIF: <?php echo $rfc == 'AAAC7302032W8' ? '14120253064' : $folio ?></br>
                     VALIDA TU INFORMACIÓN FISCAL
                     </p>
                 </div>
