@@ -4,7 +4,7 @@
         private $folio;
         private $rfc;
         private $isFisica;
-        
+        private $nombreCompleto;
 
         public function __construct($db) {
             $this->conn = $db;
@@ -22,6 +22,7 @@
                 $result = $stmt->fetchAll();
                 $this->folio = $result[0]['folio'];
                 $this->rfc = $rfc;
+                $this->nombreCompleto = $result[0]['nombre'].' '.$result[0]['paterno'].' '.$result[0]['materno'];
                 return $result[0];
             }
             // Si no lo encontró busca en personas morales
@@ -35,6 +36,7 @@
                 $result = $stmt->fetchAll();
                 $this->folio = $result[0]['folio'];
                 $this->rfc = $rfc;
+                $this->nombreCompleto = $result[0]['nombre'];
                 return $result[0];
             }
             // No se encontro ninguno
@@ -54,5 +56,8 @@
             return $hostRoot.'D1='.$d1.'&D2='.$d2.'&D3='.$d3;
         }
 
+        public function getNombreCompleto() {
+            return $this->nombreCompleto;
+        }
     }
 ?>
