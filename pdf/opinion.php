@@ -71,8 +71,7 @@
                 <div class="footer-sello-label">Sello Digital:</div>
                 <div class="footer-sello"><?php echo $selloDigital?></div>
             </div>
-            <?php $top = $rfc=='VACJ750909CR1' ? -95 : -80; ?>
-            <div class="footer-qr" style="margin-top: <?php echo $top ?>px;">
+            <div class="footer-qr" style="margin-top: -80px;">
                 <img src="<?php echo $qr ?>" alt="" />
             </div>
         </div>

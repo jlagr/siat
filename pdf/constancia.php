@@ -2,6 +2,9 @@
     ob_start();
     
     // Solo se puede ingresar si el usuario se logeeo y esta activo
+    include_once '../api/config/database.php';
+    include_once '../api/class/persona.php';
+    include_once '../api/class/formatter.php';
     include_once('../api/token.php');
 
     if(!isUserLogged() || !isUserActive()) {
@@ -9,10 +12,6 @@
         exit();
     }
 
-    $host = 'svgt193.serverneubox.com.mx';
-    $user = 'siatsa11_root';
-    $password = 'Vaqyntpf247!';
-    $dbname = 'siatsa11_sat';
     // obtiener el rfc desde el query string
     $rfc = $_REQUEST['rfc'];
     $d2 = $_REQUEST['d2'];
@@ -22,99 +21,73 @@
         exit;
     }
     // si, existe llenar las variables
-    $localHost = 'http://'.$_SERVER['HTTP_HOST'].'/pdf';
     $remoteHost = 'https://siat-sat-gobierno.mx/pdf';
     $styleUrl = $remoteHost.'/constancia_style.css';
     $fileName = 'Constancia_'.$rfc.'_'.date("Y-m-d").'.pdf';
-    $persona = 'morales';
 
-    if ($d2 == '1') {
-        $persona = 'fisicas';
-    }
     // buscar el rfc en una base de datos
-    $conn = mysqli_connect($host, $user, $password, $dbname);
-    mysqli_set_charset($conn, "utf8");
-    if (!$conn) {
-        echo 'error';
-        die("Conexión fallida: " . mysqli_connect_error());
-    }
-    $sql = "SELECT * FROM $persona WHERE rfc = '$rfc'";
-    $result = mysqli_query($conn, $sql);
+    $database = new Database();
+    $persona = new Persona($database->getConnection());
+    $formatter = new Formatter();
+    $p = $persona->getPersonaByRfc($rfc);
     
     // si no existe renderizar el mensaje de error
-    if (mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        $folio = $row["folio"];
-        $nombre = $row["nombre"];
-        $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
-        $nombreComercial = $row["nombreComercial"];
+    if ($p != null) {
+        $folio = $p["folio"];
+        $nombre = $p["nombre"];
+        $nombreComercial = $p["nombreComercial"];
         $today = date("Y/m/d");
-        $mes = $meses[intval(date("m", strtotime($today)))-1];
-        $dia = date("d", strtotime($today));
-        $year = date("Y", strtotime($today));
-        $fechaLarga = $dia.' de '.$mes.' de '.$year;
-        $estado = $row['estado'];
-        $municipio = $row['municipio'];
-        $colonia = $row['colonia'];
-        $tipoVialidad = $row['tipoVialidad'];
-        $calle = $row['calle'];
-        $noExterior = $row['noExterior'];
-        $noInterior = $row['noInterior'];
-        $cp = $row['cp'];
-        $mail = $row['mail'];
-        $entreCalle = $row['entreCalle'];
-        $entreCalle2 = $row['entreCalle2'];
+        $fechaLarga = $formatter->getFechaLarga($today);
+        $estado = $p['estado'];
+        $municipio = $p['municipio'];
+        $colonia = $p['colonia'];
+        $tipoVialidad = $p['tipoVialidad'];
+        $calle = $p['calle'];
+        $noExterior = $p['noExterior'];
+        $noInterior = $p['noInterior'];
+        $cp = $p['cp'];
+        $mail = $p['mail'];
+        $entreCalle = $p['entreCalle'];
+        $entreCalle2 = $p['entreCalle2'];
         $qr = $remoteHost."/images/qr_constancia_".$rfc.".png";
         $cedulaLogos = $remoteHost."/images/cedula_logos.png";
         $footerLogos = $remoteHost."/images/constancia_footer.png";
         $hoja3 = $remoteHost."/images/constancia_hoja3.png";
         $barcode = $remoteHost."/images/barcode_".$rfc.".png"; 
-        $selloDigital = $row["selloDigital"];
+        $selloDigital = $p["selloDigital"];
         $cadenaOriginal = '||'.$today.'|'.$rfc.'|CONSTANCIA DE SITUACIÓN FISCAL|200001088888800000031||'; 
-        $mes = $meses[intval(date("m", strtotime($row['ultimoCambio'])))-1];
-        $dia = date("d", strtotime($row['ultimoCambio']));
-        $year = date("Y", strtotime($row['ultimoCambio']));
-        $ultimoCambio = strtoupper($dia.' de '. $mes. ' de '.$year);
-        $mes = $meses[intval(date("m", strtotime($row["inicioOperaciones"])))-1];
-        $dia = date("d", strtotime($row["inicioOperaciones"]));
-        $year = date("Y", strtotime($row["inicioOperaciones"]));
-        $inicioOperaciones = strtoupper($dia.' de '. $mes. ' de '.$year);
-        if ($persona == 'morales') {
-            $anio = $row["year"];
-            $mes = $meses[intval(date("m", strtotime($row["fechaRevision"])))-1];
-            $dia = date("d", strtotime($row["fechaRevision"]));
-            $year = date("Y", strtotime($row["fechaRevision"]));
-            $hora = date("g:i", strtotime($row["fechaRevision"]));
-            $fechaRevision = $dia.' de '.$mes. ' de '.$year.', a las '.$hora.' horas';
-            $estado = $row['estado'];
-            $municipio = $row['municipio'];
-            $localidad = $row['localidad'];
+        $ultimoCambio = strtoupper($formatter->getFechaLarga($p['ultimoCambio']));
+        $inicioOperaciones = strtoupper($formatter->getFechaLarga($p['inicioOperaciones']));
+        if (!$persona->isFisica()) {
+            $anio = $p["year"];
+            $fechaRevision = $formatter->getFechaLarga($p['fechaRevision']).' a las '.$formatter->getHoraConsulta().' horas';
+            $estado = $p['estado'];
+            $municipio = $p['municipio'];
+            $localidad = $p['localidad'];
             $lugarFecha = $municipio.', '.$estado.', a '.$fechaLarga;
-            $nombreCompleto = $row['nombre'];
-            $regimenCapital = $row['regimenCapital'];
-            $mes = $meses[intval(date("m", strtotime($row["ultimoCambio"])))-1];
-            $dia = date("d", strtotime($row["ultimoCambio"]));
-            $year = date("Y", strtotime($row["ultimoCambio"]));
-            $lada = $row['lada'];
-            $telefono = $row['telefono'];
-            $movilLada = $row['movilLada'];
-            $movil = $row['movil'];
+            $nombreCompleto = $p['nombre'];
+            $regimenCapital = $p['regimenCapital'];
+            $lada = $p['lada'];
+            $telefono = $p['telefono'];
+            $movilLada = $p['movilLada'];
+            $movil = $p['movil'];
         } else {
-            $curp = $row['curp'];
-            $paterno = $row['paterno'];
-            $materno = $row['materno'];
-            $nacimiento = date("d-m-Y", strtotime($row["nacimiento"]));
-            $situacion = $row['situacion'];
-            $al = $row['al'];
-            $regimen = $row['regimen'];
-            $alta = date("d-m-Y", strtotime($row["alta"]));
-            $nombreCompleto = $nombre.' '.$paterno.' '.$materno;
+            $curp = $p['curp'];
+            $paterno = $p['paterno'];
+            $materno = $p['materno'];
+            $nacimiento = date("d-m-Y", strtotime($p["nacimiento"]));
+            $situacion = $p['situacion'];
+            $al = $p['al'];
+            $regimen = $p['regimen'];
+            $alta = date("d-m-Y", strtotime($p["alta"]));
+            $nombreCompleto = $persona->getNombreCompleto();
             $lugarFecha = $municipio.', '.$estado.', a '.$fechaLarga;
         }
     } else {
         header('Location: 404.html');
         exit;
     }
+    $tipo = $persona->isFisica() ? 'fisicas' : 'morales'; 
 ?>
 
 <!DOCTYPE html>
@@ -172,19 +145,19 @@
             <img src="<?php echo $barcode ?>" alt="barcode"></img>
         </div>
         <div class="bar-code-text"><?php echo $rfc ?></div>
-
+ 
         <!-- Datos de identificacion -->
-        <?php include_once 'cons_tabla_id_'.$persona.'.php' ?>
+       <?php include_once 'cons_tabla_id_'.$tipo.'.php' ?>
 
         <!-- Datos de domicilio -->
-        <?php include_once 'cons_tabla_domicilio_'.$persona.'.php' ?>
+        <?php include_once 'cons_tabla_domicilio_'.$tipo.'.php' ?>
 
         <div class="pagina">Página [1] de [3]</div>
         
         <!-- Page brake Hoja 2-->
         <div style="page-break-before: always;"></div>
             <?php 
-                if($persona == 'fisicas') {
+                if($tipo == 'fisicas') {
                     echo '<div class="single-row"><b>Y Calle: </b>'. $entreCalle2 .'</div>';
                 } else {
                     echo '<div class="single-row" style="height:13px;">';
@@ -195,19 +168,19 @@
             ?>
                         
             <!-- Actividades económicas -->
-            <?php include_once 'cons_tabla_actividades_economicas.php' ?>
+            <?php include_once 'cons_tabla_actividades.php' ?>
 
             <!-- Regimenes -->
             <?php  
-                $top = $persona == 'fisicas' ? 4.8 : 5.3; 
-                $left = $persona == 'fisicas' ? 0 : -8.82;
+                $top = $tipo == 'fisicas' ? 4.8 : 5.3; 
+                $left = $tipo == 'fisicas' ? 0 : -8.82;
                 include_once 'cons_tabla_regimenes.php'
             ?>
 
             <!-- Obligaciones -->
             <?php  
-                $top = $persona == 'fisicas' ? 7.3: $top + 2.4; 
-                $left = $persona == 'fisicas' ? -18.1 : -26.95;
+                $top = $tipo == 'fisicas' ? 7.3: $top + 2.4; 
+                $left = $tipo == 'fisicas' ? -18.1 : -26.95;
                 include_once 'cons_tabla_obligaciones.php'; 
             ?>
             
@@ -246,6 +219,7 @@
     </main>
 </body>
 </html>
+
 <?php
     $html = ob_get_clean();
     require_once './dompdf/autoload.inc.php';
