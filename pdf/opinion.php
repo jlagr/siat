@@ -25,7 +25,6 @@
     $persona = new Persona($database->getConnection());
     $formatter = new Formatter();
     $p = $persona->getPersonaByRfc($rfc);
-    $tipo = $persona->isFisica() ? 'Fisica' : 'Moral';
  
     // si no existe renderizar el mensaje de error
     if ($p != null) {
