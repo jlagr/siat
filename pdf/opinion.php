@@ -40,8 +40,8 @@
         else {
             $nombre = $row["nombre"];
         }
-        $today = date("Y/m/d");
-        $cadenaOriginal = '||'.$today.'|'.$rfc.'|'.$folio.'|200001088888800000031||'; 
+        $today = date("d-m-Y");
+        $cadenaOriginal = '||'.$rfc.'|'.$folio.'|'.$today.'|P|00001088888800000031||'; 
         $selloDigital = $row["selloDigital"];
         $meses = array("enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre");
         $mes = $meses[intval(date("m", strtotime($row["fechaRevision"])))-1];
@@ -88,7 +88,8 @@
                 <div class="footer-sello-label">Sello Digital:</div>
                 <div class="footer-sello"><?php echo $selloDigital?></div>
             </div>
-            <div class="footer-qr">
+            <?php $top = $rfc=='VACJ750909CR1' ? -95 : -80; ?>
+            <div class="footer-qr" style="margin-top: <?php echo $top ?>px;">
                 <img src="<?php echo $qr ?>" alt="" />
             </div>
         </div>

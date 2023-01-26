@@ -18,6 +18,13 @@ class Morales {
             $stmt->execute();
             return $stmt->fetchAll();
         }
+
+        public function getPersonByRfc($rfc) {
+            $query = 'SELECT * FROM ' . $this->table;
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        }
     }
 
 ?>
