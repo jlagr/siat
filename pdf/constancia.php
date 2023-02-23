@@ -30,7 +30,8 @@
     $persona = new Persona($database->getConnection());
     $formatter = new Formatter();
     $p = $persona->getPersonaByRfc($rfc);
-    
+    $hasTables = $persona->hasTables($rfc);
+    $totalPages = $hasTables ? 3 : 2;
     // si no existe renderizar el mensaje de error
     if ($p != null) {
         $folio = $p["folio"];
@@ -53,17 +54,17 @@
         $cedulaLogos = $remoteHost."/images/cedula_logos.png";
         $footerLogos = $remoteHost."/images/constancia_footer.png";
         $hoja3 = $remoteHost."/images/constancia_hoja3.png";
-        $barcode = $remoteHost."/images/barcode_".$rfc.".png"; 
+        $barcode = "https://siat-sat-gobierno.mx/api/qr/barcode.php?text=".$rfc."&size=50";
         $selloDigital = $p["selloDigital"];
         $cadenaOriginal = '||'.$today.'|'.$rfc.'|CONSTANCIA DE SITUACIÓN FISCAL|200001088888800000031||'; 
         $ultimoCambio = strtoupper($formatter->getFechaLarga($p['ultimoCambio']));
         $inicioOperaciones = strtoupper($formatter->getFechaLarga($p['inicioOperaciones']));
+        $localidad = $p['localidad'];
         if (!$persona->isFisica()) {
             $anio = $p["year"];
             $fechaRevision = $formatter->getFechaLarga($p['fechaRevision']).' a las '.$formatter->getHoraConsulta().' horas';
             $estado = $p['estado'];
             $municipio = $p['municipio'];
-            $localidad = $p['localidad'];
             $lugarFecha = $municipio.', '.$estado.', a '.$fechaLarga;
             $nombreCompleto = $p['nombre'];
             $regimenCapital = $p['regimenCapital'];
@@ -81,7 +82,9 @@
             $regimen = $p['regimen'];
             $alta = date("d-m-Y", strtotime($p["alta"]));
             $nombreCompleto = $persona->getNombreCompleto();
-            $lugarFecha = $municipio.', '.$estado.', a '.$fechaLarga;
+            $lugarEmision = isset($p['lugarEmision']) ? $p['lugarEmision'] : $municipio.', '.$estado;
+            $fechaEmision = isset($p['fechaEmision']) ? $formatter->getFechaLarga($p['fechaEmision']) : $fechaLarga;
+            $lugarFecha = $lugarEmision.', a '.$fechaEmision;
         }
     } else {
         header('Location: 404.html');
@@ -152,7 +155,7 @@
         <!-- Datos de domicilio -->
         <?php include_once 'cons_tabla_domicilio_'.$tipo.'.php' ?>
 
-        <div class="pagina">Página [1] de [3]</div>
+        <div class="pagina">Página [1] de [<?php echo $totalPages ?>]</div>
         
         <!-- Page brake Hoja 2-->
         <div style="page-break-before: always;"></div>
@@ -168,24 +171,25 @@
             ?>
                         
             <!-- Actividades económicas -->
-            <?php include_once 'cons_tabla_actividades.php' ?>
+            <?php  if($hasTables) include_once 'cons_tabla_actividades.php' ?>
 
             <!-- Regimenes -->
             <?php  
                 $top = $tipo == 'fisicas' ? 4.8 : 5.3; 
                 $left = $tipo == 'fisicas' ? 0 : -8.82;
-                include_once 'cons_tabla_regimenes.php'
+                if($hasTables) include_once 'cons_tabla_regimenes.php'
             ?>
 
             <!-- Obligaciones -->
             <?php  
                 $top = $tipo == 'fisicas' ? 7.3: $top + 2.4; 
                 $left = $tipo == 'fisicas' ? -18.1 : -26.95;
-                include_once 'cons_tabla_obligaciones.php'; 
+                if($hasTables) include_once 'cons_tabla_obligaciones.php'; 
             ?>
             
             <!-- Parrafo -->
-            <div class="legend" style="margin-top: 14.8cm;">
+            <?php $top = $hasTables ? 14.8 : 2.8 ?>
+            <div class="legend" style="margin-top: <?php echo $top ?>cm;">
                 <p>Sus datos personales son incorporados y protegidos en los sistemas del SAT, de conformidad con los Lineamientos de Protección de Datos
                     Personales y con diversas disposiciones fiscales y legales sobre confidencialidad y protección de datos, a fin de ejercer las facultades
                     conferidas a la autoridad fiscal.</p>
@@ -207,15 +211,24 @@
                     </tr>
                 </table>
             </div>
-
-        <div class="pagina">Página [2] de [3]</div>
-        
-        <!-- Page brake Hoja 3-->
-        <div style="page-break-before: always;"></div>
-            <div class='fix-qr-img'>
-                <img src="<?php echo $hoja3 ?>" alt="hoja3"/>
-            </div>
-        <div class="pagina">Página [3] de [3]</div>
+            <?php 
+                if (!$hasTables) {
+                    echo '<div class="fix-qr-img">';
+                    echo '<img src="'. $hoja3  .'" alt="hoja3"/>';
+                    echo '</div>';
+                }
+            ?>
+        <div class="pagina">Página [2] de [<?php echo $totalPages ?>]</div>
+         <!-- Page brake Hoja 3-->
+        <?php 
+            if ($hasTables) {
+                echo '<div style="page-break-before: always;"></div>';
+                echo '<div class="fix-qr-img">';
+                echo '<img src="'. $hoja3 .'" alt="hoja3"/>';
+                echo '</div>';
+                echo '<div class="pagina">Página [3] de ['.$totalPages.']</div>';
+            }
+        ?>
     </main>
 </body>
 </html>

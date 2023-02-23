@@ -25,7 +25,7 @@
     $persona = new Persona($database->getConnection());
     $formatter = new Formatter();
     $p = $persona->getPersonaByRfc($rfc);
- 
+
     // si no existe renderizar el mensaje de error
     if ($p != null) {
         $folio = $p["folio"];
@@ -33,7 +33,7 @@
         $today = date("d-m-Y");
         $cadenaOriginal = '||'.$rfc.'|'.$folio.'|'.$today.'|P|00001088888800000031||'; 
         $selloDigital = $p["selloDigital"];
-        $fechaRevision = $formatter->getFechaLarga($p['fechaRevision']).' a las '.$formatter->getHoraConsulta().' horas';
+        $fechaRevision = $formatter->getFechaLarga($today).' a las '.$formatter->getHoraConsulta().' horas';
         $anio = date("Y", strtotime($today));
         $qr =  $remoteHost."/images/qr_opinion_".$rfc.".png";
     } else {
@@ -177,5 +177,5 @@ cuando el monto del subsidio no rebase de 40 UMAS elevado al año, en caso contr
     $dompdf->loadHtml($html);
 
     $dompdf->render();
-    $dompdf->stream("opinion.pdf", array("Attachment"=>false));
+    $dompdf->stream("opinion_".$rfc."_".$today.".pdf", array("Attachment"=>false));
 ?>

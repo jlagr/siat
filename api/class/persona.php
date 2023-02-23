@@ -59,5 +59,21 @@
         public function getNombreCompleto() {
             return $this->nombreCompleto;
         }
+
+        public function getAllRfcs() {
+            $query = "SELECT rfc, folio, 'fisica' as persona FROM fisicas UNION SELECT rfc, folio, 'moral' as persona FROM morales";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        }
+
+        public function hasTables($rfc) {
+            $query = "SELECT rfc FROM regimenes WHERE rfc = :rfc  UNION SELECT rfc FROM actividades WHERE rfc = :rfc UNION  SELECT rfc FROM obligaciones WHERE rfc = :rfc";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':rfc', $rfc);
+            $stmt->execute();
+            $num = $stmt->rowCount();
+            return $num > 0;
+        }
     }
 ?>

@@ -45,13 +45,202 @@
 
 .user-menu {
 	font-size: 12px;
-	width: 140px;
-	float: right;
+	width: 170px;
+	float: left;
+	margin-top: 30px;
 	margin-left: auto;
+	border-radius: 10px;
+	height: 700px;
+	background: linear-gradient(to bottom, #B38E5D, #f2f2f2);
+	border: solid 1px rgb(179, 142, 93);
+	box-shadow: 6px 7px 7px -2px rgba(212,187,154,0.75);
+	-webkit-box-shadow: 6px 7px 7px -2px rgba(212,187,154,0.75);
+	-moz-box-shadow: 6px 7px 7px -2px rgba(212,187,154,0.75);
+}
+
+.user-menu-title {
+	font-size: 16px;
+	font-weight: 400;
+	width: 74px;
+	margin: 0 auto;
+}
+
+.add-menu {
+	border: solid 1px rgb(179, 142, 93);
+	box-shadow: 6px 7px 7px -2px rgba(212,187,154,0.75);
+	-webkit-box-shadow: 6px 7px 7px -2px rgba(212,187,154,0.75);
+	-moz-box-shadow: 6px 7px 7px -2px rgba(212,187,154,0.75);
 }
 
 table.prueba td{
   border-width: 0px;
+}
+
+.new-edit-title {
+	margin-top: 15px;
+	font-weight: 700;
+}
+
+.persona-selector {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	display: flex;
+	justify-content: left;
+	width: 100%;
+	font-size: 12px;
+}
+
+.persona-selector-cancel {
+	display: flex;
+	justify-content: flex-end;
+	width: 630px;
+}
+
+.save-cancel-row {
+	margin-top: 15px;
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+}
+
+.persona-selector .persona-selector-label {
+	margin-right: 15px;
+	margin-top: 5px;
+}
+
+.persona-selector select {
+	border-color: rgb(179, 142, 93);
+	border-radius: 5px;
+}
+.persona-selector select:focus {
+	border-color: rgb(179, 142, 93);
+	border-width: 2px;
+}
+
+.wrapper-container {
+	border: solid 1px rgb(179, 142, 93);
+	box-shadow: 6px 7px 7px -2px rgba(212,187,154,0.75);
+	-webkit-box-shadow: 6px 7px 7px -2px rgba(212,187,154,0.75);
+	-moz-box-shadow: 6px 7px 7px -2px rgba(212,187,154,0.75);
+	margin-top: 15px;
+	border-radius: 5px;
+}
+
+.tab-container {
+	display: flex;
+	flex-direction: column;
+  }
+  
+  .tab-header {
+	display: flex;
+	font-size: 12px;
+  }
+  
+  .tab-btn {
+	padding: 10px;
+	border: none;
+	/* background-color: #ddd; */
+	cursor: pointer;
+  }
+  
+  .tab-btn.active {
+	position: relative;
+	background-color: #fff;
+	border-top: 1px solid rgb(179,142,93);
+	border-left: 1px solid rgb(179,142,93);
+	border-right: 1px solid rgb(179,142,93);
+	z-index: 2;
+	border-bottom: 3px solid #fff;	
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+  }
+  
+  .tab-pane {
+	position: relative;
+	margin-top: -2px;
+	z-index: 1;
+	display: none;
+	padding: 10px;
+	background-color: #fff;
+	font-size: 12px;
+	border: solid 1px rgb(179, 142, 93);
+	box-shadow: 6px 7px 7px -2px rgba(212,187,154,0.75);
+	-webkit-box-shadow: 6px 7px 7px -2px rgba(212,187,154,0.75);
+	-moz-box-shadow: 6px 7px 7px -2px rgba(212,187,154,0.75);
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+  }
+  
+  .tab-pane.active {
+	display: block;
+  }
+  
+  .toast {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-40%, -50%);
+	background-color:  rgb(179,142,93) !important;
+	color: white;
+   	z-index: 2;
+	font-weight: 400 !important;
+	font-size: 12px !important;
+  }
+
+  .toast .toast-header .fas {
+	font-size: 18px;
+  }
+ 
+  .spinner {
+	color: #B38E5D !important;
+	margin-top: -35px;
+  }
+
+element.style {
+    font-size: 12px;
+}
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+}
+.ui-body-c, .ui-body-c input, .ui-body-c select, .ui-body-c textarea, .ui-body-c button {
+    font-family: Montserrat /*{global-font-family}*/;
+}
+.ui-body-c, .ui-body-c input, .ui-body-c select, .ui-body-c textarea, .ui-body-c button {
+    font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+}
+.btn-group-sm>.btn, .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: .875rem;
+    border-radius: 0.2rem;
+}
+
+.btn-outline-primary  {
+	font-size: 16px !important;
+	color: rgb(179, 142, 93) !important;
+	border: none !important;
+}
+
+.btn-outline-primary:hover  {
+	color: #fff !important;
+	border: none !important;
+	background-color: rgb(179, 142, 93) !important;
+	height: 30px;
+}
+
+.table-striped {
+	font-size: 12px;
+	margin-top: 15px;
+}
+
+.table-striped th {
+	font-weight: 400;
+}
+
+.tab-contols {
+	text-align: right;
+	width: 37%;
+	font-size: 22px;
 }
 
 .ui-messages-error{
@@ -860,4 +1049,10 @@ a.ui-link-inherit {
 	outline-width: 1px;
 	outline-style: auto;
 }
-			
+
+@media (max-width: 1020px) {
+	.user-menu {
+	  display: none;
+	}
+  }
+

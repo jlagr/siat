@@ -28,4 +28,12 @@
         $userData = explode("|", urldecode($_COOKIE['user']));
         return $user->isUserActive($userData[0]);
     }
+
+    function isUserAdmin() {
+        $database = new Database();
+        $user = new User($database->getConnection());
+        $userData = explode("|", urldecode($_COOKIE['user']));
+        return $user->userIsAdmin($userData[0]);
+        //return $userData[0];
+    }
 ?>

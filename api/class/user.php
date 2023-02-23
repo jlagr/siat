@@ -111,6 +111,21 @@
             return false;
         }
 
+        // verifica si el usuario es administrador
+        public function userIsAdmin($id) {
+            // query para verificar si el usuario existe
+            $query = 'SELECT * FROM ' . $this->table . ' WHERE id=:id and isAdmin = 1 LIMIT 0,1';
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $num = $stmt->rowCount();        
+            
+            if($num > 0) {
+                return true;
+            }
+            return false;
+        }
+
         // Genera un token unico
         public function getToken()  {
              return sha1(uniqid(rand(), true).$this->password.$this->email);
